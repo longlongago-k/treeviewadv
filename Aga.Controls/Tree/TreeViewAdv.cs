@@ -582,7 +582,9 @@ namespace Aga.Controls.Tree
 			int y = rowRect.Y;
 			int x = (node.Level - 1) * _indent + LeftMargin;
 			int width = 0;
-			if (node.Row == 0 && ShiftFirstNode)
+			if (
+				//node.Row == 0 && //  Switch off to be same behavior as WInForm one
+				ShiftFirstNode)
 				x -= _indent;
 			Rectangle rect = Rectangle.Empty;
 
