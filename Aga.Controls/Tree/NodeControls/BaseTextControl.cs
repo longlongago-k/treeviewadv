@@ -87,7 +87,8 @@ namespace Aga.Controls.Tree.NodeControls
 			get;
 			set;
 		}
-
+        [DefaultValue(true)]
+        public bool ShowSpaceIfEmpty { get; set; } = true;
 		#endregion
 
 		protected BaseTextControl()
@@ -139,8 +140,10 @@ namespace Aga.Controls.Tree.NodeControls
 
 			if (!s.IsEmpty)
 				return s;
-			else
+			else if (ShowSpaceIfEmpty)
 				return new Size(10, Font.Height);
+			else
+				return new Size(0, Font.Height);
 		}
 
 		protected Font GetDrawingFont(TreeNodeAdv node, DrawContext context, string label)
@@ -173,6 +176,8 @@ namespace Aga.Controls.Tree.NodeControls
 
 			PerformanceAnalyzer.Start("BaseTextControl.Draw");
 			string label = GetLabel(node);
+			if (string.IsNullOrEmpty(label) && !ShowSpaceIfEmpty)
+				return;
 			Rectangle bounds = GetBounds(node, context);
 			Rectangle focusRect = new Rectangle(bounds.X, context.Bounds.Y,	
 				bounds.Width, context.Bounds.Height);
