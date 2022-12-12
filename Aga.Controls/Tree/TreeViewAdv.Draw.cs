@@ -31,6 +31,9 @@ namespace Aga.Controls.Tree
 					}
 					if (column.Index == 0)
 					{
+						if(ShiftFirstNode)
+						w += (node.Level-1) * _indent + LeftMargin;
+							else
 						w += node.Level * _indent + LeftMargin;
 					}
 					res = Math.Max(res, w);
@@ -264,12 +267,15 @@ namespace Aga.Controls.Tree
 			while (curNode != _root && curNode != null)
 			{
 				int level = curNode.Level;
+                if (ShiftFirstNode)
+                    level--;
 				int x = (level - 1) * _indent + NodePlusMinus.ImageSize / 2 + LeftMargin;
 				int width = NodePlusMinus.Width - NodePlusMinus.ImageSize / 2;
 				int y = rowRect.Y;
 				int y2 = y + rowRect.Height;
 
-				if (curNode == node)
+
+                if (curNode == node)
 				{
 					int midy = y + rowRect.Height / 2;
 					gr.DrawLine(_linePen, x, midy, x + width, midy);

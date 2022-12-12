@@ -578,12 +578,15 @@ namespace Aga.Controls.Tree
 		{
 			if (node == null)
 				yield break;
+			int level = node.Level;
+            if (ShiftFirstNode)
+                level--;
 
-			int y = rowRect.Y;
-			int x = (node.Level - 1) * _indent + LeftMargin;
+            int y = rowRect.Y;
+			int x = (level - 1) * _indent + LeftMargin;
 			int width = 0;
-			if (node.Row == 0 && ShiftFirstNode)
-				x -= _indent;
+			//if (node.Row == 0 && ShiftFirstNode)
+			//	x -= _indent;
 			Rectangle rect = Rectangle.Empty;
 
 			if (ShowPlusMinus)
