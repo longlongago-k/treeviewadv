@@ -89,6 +89,8 @@ namespace Aga.Controls.Tree.NodeControls
 		}
         [DefaultValue(true)]
         public bool ShowSpaceIfEmpty { get; set; } = true;
+        [DefaultValue(true)]
+		public bool ShowFocus { get; set; } = true;
 		#endregion
 
 		protected BaseTextControl()
@@ -189,7 +191,7 @@ namespace Aga.Controls.Tree.NodeControls
 
 			if (backgroundBrush != null)
 				context.Graphics.FillRectangle(backgroundBrush, focusRect);
-			if (context.DrawFocus)
+			if (context.DrawFocus && ShowFocus)
 			{
 				focusRect.Width--;
 				focusRect.Height--;
@@ -229,12 +231,12 @@ namespace Aga.Controls.Tree.NodeControls
 			textColor = SystemColors.ControlText;
 			backgroundBrush = null;
 			font = context.Font;
-			if (context.DrawSelection == DrawSelectionMode.Active)
+			if (context.DrawSelection == DrawSelectionMode.Active && ShowFocus)
 			{
 				textColor = SystemColors.HighlightText;
                 backgroundBrush = SystemBrushes.Highlight;
 			}
-			else if (context.DrawSelection == DrawSelectionMode.Inactive)
+			else if (context.DrawSelection == DrawSelectionMode.Inactive && ShowFocus)
 			{
 				textColor = SystemColors.ControlText;
                 backgroundBrush = SystemBrushes.InactiveBorder;
