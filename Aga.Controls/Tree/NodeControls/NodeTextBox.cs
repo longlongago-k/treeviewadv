@@ -10,6 +10,7 @@ namespace Aga.Controls.Tree.NodeControls
 {
 	public class NodeTextBox : BaseTextControl
 	{
+		public event CancelEventHandler TextValidating;
 		private const int MinTextBoxWidth = 30;
 
 		public NodeTextBox()
@@ -46,12 +47,18 @@ namespace Aga.Controls.Tree.NodeControls
 			textBox.TextChanged += EditorTextChanged;
 			textBox.KeyDown += EditorKeyDown;
 			textBox.BorderStyle = BorderStyle.None;
+            textBox.Validating += OnTextValidating;
 			_label = textBox.Text;
 			SetEditControlProperties(textBox, node);
 			return textBox;
 		}
 
-		protected virtual TextBox CreateTextBox()
+        protected virtual void OnTextValidating(object sender, CancelEventArgs e)
+        {
+			TextValidating?.Invoke(sender, e);
+        }
+
+        protected virtual TextBox CreateTextBox()
 		{
 			return new TextBox();
 		}
