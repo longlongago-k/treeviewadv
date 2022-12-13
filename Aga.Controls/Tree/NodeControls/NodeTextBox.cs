@@ -8,9 +8,10 @@ using System.ComponentModel;
 
 namespace Aga.Controls.Tree.NodeControls
 {
+	public delegate void NodeTextValidationEventHandler(object sender, string newText, CancelEventArgs e);
 	public class NodeTextBox : BaseTextControl
 	{
-		public event CancelEventHandler TextValidating;
+		public event NodeTextValidationEventHandler TextValidating;
 		private const int MinTextBoxWidth = 30;
 
 		public NodeTextBox()
@@ -56,7 +57,7 @@ namespace Aga.Controls.Tree.NodeControls
 
         protected virtual void OnTextValidating(object sender, CancelEventArgs e)
         {
-			TextValidating?.Invoke(((TextBox)sender).Tag, e);
+			TextValidating?.Invoke(((TextBox)sender).Tag, ((TextBox)sender).Text, e);
         }
 
         protected virtual TextBox CreateTextBox()
