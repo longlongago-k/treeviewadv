@@ -48,6 +48,7 @@ namespace Aga.Controls.Tree.NodeControls
 			textBox.KeyDown += EditorKeyDown;
 			textBox.BorderStyle = BorderStyle.None;
             textBox.Validating += OnTextValidating;
+			textBox.Tag = node;
 			_label = textBox.Text;
 			SetEditControlProperties(textBox, node);
 			return textBox;
@@ -55,7 +56,7 @@ namespace Aga.Controls.Tree.NodeControls
 
         protected virtual void OnTextValidating(object sender, CancelEventArgs e)
         {
-			TextValidating?.Invoke(sender, e);
+			TextValidating?.Invoke(((TextBox)sender).Tag, e);
         }
 
         protected virtual TextBox CreateTextBox()
